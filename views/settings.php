@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Attack detector log.
+ * Attack detector summary view.
  *
  * @category   apps
  * @package    attack-detector
@@ -26,55 +26,63 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.  
-//
+//  
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
 // Load dependencies
 ///////////////////////////////////////////////////////////////////////////////
 
-$this->lang->load('base');
-$this->lang->load('network');
 $this->lang->load('attack_detector');
 
 ///////////////////////////////////////////////////////////////////////////////
-// Anchor
+// Headers
 ///////////////////////////////////////////////////////////////////////////////
 
-$buttons = array();
-
 $headers = array(
-    lang('network_ip'),
-    lang('attack_detector_rule'),
-    lang('base_date') . '/' . lang('base_time')
+    lang('attack_detector_rule_name'),
+    lang('base_description')
 );
 
-$rows = array();
+$anchors = array();
 
-foreach ($entries as $entry) {
-    $row = array();
-    $row['details'] = array(
-        $entry['ip'],
-        $entry['rule'],
-        $entry['date'] . ' - ' . $entry['time']
+///////////////////////////////////////////////////////////////////////////////
+// Ports
+///////////////////////////////////////////////////////////////////////////////
+
+foreach ($rules as $basename => $rule) {
+    $state = ($rule['enabled']) ? 'disable' : 'enable';
+    $state_anchor = 'anchor_' . $state;
+
+    $item['current_state'] = (bool)$rule['enabled'];
+    $item['action'] = '/app/attack_detector/settings/edit/' . $basename;
+    $item['anchors'] = button_set(
+        array(
+            $state_anchor('/app/attack_detector/settings/' . $state . '/' . $basename, 'high', $options),
+        )
     );
-    $rows[] = $row;
+    $item['details'] = array(
+        $basename,
+        $rule['description']
+    );
+
+    $items[] = $item;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// Table
+// Summary table
 ///////////////////////////////////////////////////////////////////////////////
 
-$options = array(
-    'default_rows' => 10,
-    'no_action' => TRUE,
-    'sort-default-col' => 2,
+$options = array (
+    'default_rows' => 25,
+    'sort-default-col' => 1,
+    'row-enable-disable' => TRUE
 );
 
 echo summary_table(
-     lang('attack_detector_log'),
-     $buttons,
-     $headers,
-     $rows,
-     $options
+    lang('attack_detector_rules'),
+    $anchors,
+    $headers,
+    $items,
+    $options
 );

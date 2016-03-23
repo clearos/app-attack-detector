@@ -63,8 +63,12 @@ class Attack_Detector extends ClearOS_Controller
         // Load views
         //-----------
 
-        $views = array('attack_detector/server', 'attack_detector/settings');
+        $views = array(
+            'attack_detector/server',
+            'attack_detector/settings',
+            'attack_detector/summary'
+        );
 
-        $this->page->view_forms($views, lang('attack_detector_app_name'));
+        $this->page->view_controllers($views, lang('attack_detector_app_name'));
     }
 }

@@ -74,7 +74,7 @@ class Settings extends ClearOS_Controller
         // Load views
         //-----------
 
-        $this->page->view_form('attack_detector/summary', $data, lang('base_settings'));
+        $this->page->view_form('attack_detector/settings', $data, lang('base_settings'));
     }
 
     /**

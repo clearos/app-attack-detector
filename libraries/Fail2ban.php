@@ -94,6 +94,7 @@ class Fail2ban extends Daemon
     // C O N S T A N T S
     ///////////////////////////////////////////////////////////////////////////////
 
+    const FILE_LOG = '/var/log/fail2ban.log';
     const PATH_FILTERS =  '/var/clearos/attack_detector/filters';
     const PATH_JAILS =  '/etc/fail2ban/jail.d';
     const DEFAULT_BAN_TIME = 600; // TODO: lookup default ban time in /etc/fail2ban/jail.conf
@@ -154,6 +155,45 @@ class Fail2ban extends Daemon
             $this->_load_jails();
 
         return $this->jails;
+    }
+
+    /**
+     * Returns log data.
+     *
+     * @param int $max maximum number of entries to return
+     *
+     * @return array software updates
+     * @throws Engine_Exception
+     */
+
+    public function get_log($max = 20)
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        $file = new File(self::FILE_LOG);
+
+        if (!$file->exists())
+            return array();
+
+        $lines = $file->get_tail(30000);
+        $log = array();
+
+        foreach ($lines as $line) {
+
+            $pieces = preg_split('/\s+/', $line);
+
+            if ($pieces[6] !== 'Ban')
+                continue;
+
+            $output['date'] = $pieces[0];
+            $output['time'] = preg_replace('/,.*/', '', $pieces[1]);
+            $output['rule'] = preg_replace('/[\[\]]/', '', $pieces[5]);
+            $output['ip'] = $pieces[7];
+
+            $log[] = $output;
+        }
+
+        return $log;
     }
 
     /**

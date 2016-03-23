@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'attack_detector';
-$app['version'] = '2.0.0';
+$app['version'] = '2.2.1';
 $app['release'] = '1';
 $app['vendor'] = 'ClearFoundation';
 $app['packager'] = 'ClearFoundation';
@@ -27,6 +27,7 @@ $app['subcategory'] = lang('base_subcategory_intrusion_protection');
 
 $app['controllers']['attack_detector']['title'] = $app['name'];
 $app['controllers']['settings']['title'] = lang('base_settings');
+$app['controllers']['log']['title'] = lang('attack_detector_log');
 
 /////////////////////////////////////////////////////////////////////////////
 // Packaging

@@ -1,7 +1,7 @@
 
 Name: app-attack-detector
 Epoch: 1
-Version: 2.0.0
+Version: 2.2.1
 Release: 1%{dist}
 Summary: Attack Detector
 License: GPLv3

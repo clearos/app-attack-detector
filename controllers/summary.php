@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Attack detector log.
+ * Attack detector log controller.
  *
  * @category   apps
  * @package    attack-detector
- * @subpackage views
+ * @subpackage controllers
  * @author     ClearFoundation <developer@clearfoundation.com>
  * @copyright  2016 ClearFoundation
  * @license    http://www.gnu.org/copyleft/gpl.html GNU General Public License version 3 or later
@@ -25,56 +25,55 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.  
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
-// Load dependencies
+// C L A S S
 ///////////////////////////////////////////////////////////////////////////////
 
-$this->lang->load('base');
-$this->lang->load('network');
-$this->lang->load('attack_detector');
+/**
+ * Attack detector log controller.
+ *
+ * @category   apps
+ * @package    attack-detector
+ * @subpackage controllers
+ * @author     ClearFoundation <developer@clearfoundation.com>
+ * @copyright  2016 ClearFoundation
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU General Public License version 3 or later
+ * @link       http://www.clearfoundation.com/docs/developer/apps/attack_detector/
+ */
 
-///////////////////////////////////////////////////////////////////////////////
-// Anchor
-///////////////////////////////////////////////////////////////////////////////
+class Summary extends ClearOS_Controller
+{
+    /**
+     * Attack detector summary view.
+     *
+     * @return view
+     */
 
-$buttons = array();
+    function index()
+    {
+        // Load dependencies
+        //------------------
 
-$headers = array(
-    lang('network_ip'),
-    lang('attack_detector_rule'),
-    lang('base_date') . '/' . lang('base_time')
-);
+        $this->load->library('attack_detector/Fail2ban');
+        $this->lang->load('attack_detector');
 
-$rows = array();
+        // Load view data
+        //---------------
 
-foreach ($entries as $entry) {
-    $row = array();
-    $row['details'] = array(
-        $entry['ip'],
-        $entry['rule'],
-        $entry['date'] . ' - ' . $entry['time']
-    );
-    $rows[] = $row;
+        try {
+            $data['entries'] = $this->fail2ban->get_log();
+        } catch (Exception $e) {
+            $this->page->view_exception($e);
+            return;
+        }
+ 
+        // Load views
+        //-----------
+
+        $this->page->view_form('attack_detector/summary', $data, lang('base_summary'));
+    }
 }
-
-///////////////////////////////////////////////////////////////////////////////
-// Table
-///////////////////////////////////////////////////////////////////////////////
-
-$options = array(
-    'default_rows' => 10,
-    'no_action' => TRUE,
-    'sort-default-col' => 2,
-);
-
-echo summary_table(
-     lang('attack_detector_log'),
-     $buttons,
-     $headers,
-     $rows,
-     $options
-);
