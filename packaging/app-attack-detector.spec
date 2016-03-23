@@ -1,7 +1,7 @@
 
 Name: app-attack-detector
 Epoch: 1
-Version: 2.2.1
+Version: 2.2.2
 Release: 1%{dist}
 Summary: Attack Detector
 License: GPLv3
@@ -11,6 +11,7 @@ Buildarch: noarch
 Requires: %{name}-core = 1:%{version}-%{release}
 Requires: app-base
 Requires: app-network
+Requires: app-ssh-server
 
 %description
 Attack Detector scans your system for authentication failures across various types of services installed on your system.  If the failure threshold is reached, the app will block the attacking system.

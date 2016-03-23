@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'attack_detector';
-$app['version'] = '2.2.1';
+$app['version'] = '2.2.2';
 $app['release'] = '1';
 $app['vendor'] = 'ClearFoundation';
 $app['packager'] = 'ClearFoundation';
@@ -33,8 +33,10 @@ $app['controllers']['log']['title'] = lang('attack_detector_log');
 // Packaging
 /////////////////////////////////////////////////////////////////////////////
 
+// FIXME: remove app-ssh-server dependency
 $app['requires'] = array(
     'app-network',
+    'app-ssh-server',
 );
 
 $app['core_requires'] = array(
