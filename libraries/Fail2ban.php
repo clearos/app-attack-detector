@@ -262,7 +262,7 @@ class Fail2ban extends Daemon
         $folder = new Folder(self::PATH_FILTERS);
 
         if (! $folder->exists())
-            continue;
+            return;
 
         $installed = $folder->get_listing();
 
@@ -298,7 +298,7 @@ class Fail2ban extends Daemon
         $folder = new Folder(self::PATH_JAILS);
 
         if (! $folder->exists())
-            continue;
+            return;
 
         $installed = $folder->get_listing();
 
