@@ -1,7 +1,7 @@
 
 Name: app-attack-detector
 Epoch: 1
-Version: 2.2.4
+Version: 2.3.0
 Release: 1%{dist}
 Summary: Attack Detector
 License: GPLv3
@@ -40,6 +40,7 @@ cp -r * %{buildroot}/usr/clearos/apps/attack_detector/
 
 install -d -m 0755 %{buildroot}/var/clearos/attack_detector
 install -d -m 0755 %{buildroot}/var/clearos/attack_detector/filters
+install -D -m 0440 packaging/app-attack-detector %{buildroot}/etc/sudoers.d/app-attack-detector
 install -D -m 0644 packaging/fail2ban.php %{buildroot}/var/clearos/base/daemon/fail2ban.php
 
 %post
@@ -84,4 +85,5 @@ exit 0
 /usr/clearos/apps/attack_detector/deploy
 /usr/clearos/apps/attack_detector/language
 /usr/clearos/apps/attack_detector/libraries
+/etc/sudoers.d/app-attack-detector
 /var/clearos/base/daemon/fail2ban.php
