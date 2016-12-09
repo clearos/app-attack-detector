@@ -22,6 +22,6 @@ $configlet = array(
 	'package' => 'fail2ban-server',
 	'process_name' => 'fail2ban-server',
 	'pid_file' => '/var/run/fail2ban/fail2ban.pid',
-	'reloadable' => FALSE,
+	'reloadable' => TRUE,
 	'url' => '/app/attack_detector'
 );
