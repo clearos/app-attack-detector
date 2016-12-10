@@ -40,7 +40,7 @@ cp -r * %{buildroot}/usr/clearos/apps/attack_detector/
 
 install -d -m 0755 %{buildroot}/var/clearos/attack_detector
 install -d -m 0755 %{buildroot}/var/clearos/attack_detector/filters
-install -D -m 0440 packaging/app-attack-detector %{buildroot}/etc/sudoers.d/app-attack-detector
+install -D -m 0440 packaging/app-attack-detector.sudoers %{buildroot}/etc/sudoers.d/app-attack-detector
 install -D -m 0644 packaging/fail2ban.php %{buildroot}/var/clearos/base/daemon/fail2ban.php
 
 %post

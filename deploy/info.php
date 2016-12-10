@@ -52,7 +52,7 @@ $app['core_directory_manifest'] = array(
 
 $app['core_file_manifest'] = array(
     'fail2ban.php'=> array('target' => '/var/clearos/base/daemon/fail2ban.php'),
-    'app-attack-detector' => array(
+    'app-attack-detector.sudoers' => array(
         'target' => '/etc/sudoers.d/app-attack-detector',
         'mode' => '0440',
     ),

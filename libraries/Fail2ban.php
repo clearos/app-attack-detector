@@ -58,10 +58,12 @@ clearos_load_language('attack_detector');
 use \clearos\apps\base\Daemon as Daemon;
 use \clearos\apps\base\File as File;
 use \clearos\apps\base\Folder as Folder;
+use \clearos\apps\base\Shell as Shell;
 
 clearos_load_library('base/Daemon');
 clearos_load_library('base/File');
 clearos_load_library('base/Folder');
+clearos_load_library('base/Shell');
 
 // Exceptions
 //-----------
@@ -95,6 +97,7 @@ class Fail2ban extends Daemon
     ///////////////////////////////////////////////////////////////////////////////
 
     const FILE_LOG = '/var/log/fail2ban.log';
+    const COMMAND_FAIL2BAN_CLIENT = '/bin/fail2ban-client';
     const PATH_FILTERS =  '/var/clearos/attack_detector/filters';
     const PATH_JAILS =  '/etc/fail2ban/jail.d';
     const DEFAULT_BAN_TIME = 600; // TODO: lookup default ban time in /etc/fail2ban/jail.conf
@@ -217,7 +220,13 @@ class Fail2ban extends Daemon
 
         $file->replace_lines('/^enabled\s*=.*/', "enabled = $state_value\n");
 
-        $this->reset(TRUE);
+        if ($this->get_running_state()) {
+            $shell = new Shell();
+            $options['validate_exit_code'] = FALSE;
+
+            $shell->execute('/bin/fail2ban-client','reload ' . $rule, TRUE, $options);
+            $shell->execute(self::COMMAND_FAIL2BAN_CLIENT, 'reload ' . $rule, TRUE, $options);
+        }
     }
 
     ///////////////////////////////////////////////////////////////////////////////
