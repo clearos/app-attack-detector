@@ -43,6 +43,7 @@ $app['core_requires'] = array(
     'app-events-core',
     'app-network-core',
     'fail2ban-server',
+    'ipset'
 );
 
 $app['core_directory_manifest'] = array(

@@ -24,6 +24,7 @@ Requires: app-base-core
 Requires: app-events-core
 Requires: app-network-core
 Requires: fail2ban-server
+Requires: ipset
 
 %description core
 Attack Detector scans your system for authentication failures across various types of services installed on your system.  If the failure threshold is reached, the app will block the attacking system.
