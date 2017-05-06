@@ -1,7 +1,7 @@
 
 Name: app-attack-detector
 Epoch: 1
-Version: 2.3.0
+Version: 2.3.1
 Release: 1%{dist}
 Summary: Attack Detector
 License: GPLv3
@@ -40,6 +40,8 @@ cp -r * %{buildroot}/usr/clearos/apps/attack_detector/
 
 install -d -m 0755 %{buildroot}/var/clearos/attack_detector
 install -d -m 0755 %{buildroot}/var/clearos/attack_detector/filters
+install -d -m 0755 %{buildroot}/var/clearos/attack_detector/state
+install -D -m 0755 packaging/90-attack-detector %{buildroot}/etc/clearos/firewall.d/90-attack-detector
 install -D -m 0440 packaging/app-attack-detector.sudoers %{buildroot}/etc/sudoers.d/app-attack-detector
 install -D -m 0644 packaging/fail2ban.php %{buildroot}/var/clearos/base/daemon/fail2ban.php
 
@@ -79,11 +81,14 @@ exit 0
 %files core
 %defattr(-,root,root)
 %exclude /usr/clearos/apps/attack_detector/packaging
+%exclude /usr/clearos/apps/attack_detector/unify.json
 %dir /usr/clearos/apps/attack_detector
 %dir /var/clearos/attack_detector
 %dir /var/clearos/attack_detector/filters
+%dir /var/clearos/attack_detector/state
 /usr/clearos/apps/attack_detector/deploy
 /usr/clearos/apps/attack_detector/language
 /usr/clearos/apps/attack_detector/libraries
+/etc/clearos/firewall.d/90-attack-detector
 /etc/sudoers.d/app-attack-detector
 /var/clearos/base/daemon/fail2ban.php

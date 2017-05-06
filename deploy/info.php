@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'attack_detector';
-$app['version'] = '2.3.0';
+$app['version'] = '2.3.1';
 $app['release'] = '1';
 $app['vendor'] = 'ClearFoundation';
 $app['packager'] = 'ClearFoundation';
@@ -48,6 +48,7 @@ $app['core_requires'] = array(
 $app['core_directory_manifest'] = array(
     '/var/clearos/attack_detector' => array(),
     '/var/clearos/attack_detector/filters' => array(),
+    '/var/clearos/attack_detector/state' => array(),
 );
 
 $app['core_file_manifest'] = array(
@@ -55,6 +56,10 @@ $app['core_file_manifest'] = array(
     'app-attack-detector.sudoers' => array(
         'target' => '/etc/sudoers.d/app-attack-detector',
         'mode' => '0440',
+    ),
+    '90-attack-detector' => array(
+        'target' => '/etc/clearos/firewall.d/90-attack-detector',
+        'mode' => '0755',
     ),
 );
 
