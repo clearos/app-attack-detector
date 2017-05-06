@@ -40,6 +40,7 @@ cp -r * %{buildroot}/usr/clearos/apps/attack_detector/
 
 install -d -m 0755 %{buildroot}/var/clearos/attack_detector
 install -d -m 0755 %{buildroot}/var/clearos/attack_detector/filters
+install -d -m 0700 %{buildroot}/var/clearos/attack_detector/run
 install -d -m 0755 %{buildroot}/var/clearos/attack_detector/state
 install -D -m 0755 packaging/90-attack-detector %{buildroot}/etc/clearos/firewall.d/90-attack-detector
 install -D -m 0440 packaging/app-attack-detector.sudoers %{buildroot}/etc/sudoers.d/app-attack-detector
@@ -85,6 +86,7 @@ exit 0
 %dir /usr/clearos/apps/attack_detector
 %dir /var/clearos/attack_detector
 %dir /var/clearos/attack_detector/filters
+%dir /var/clearos/attack_detector/run
 %dir /var/clearos/attack_detector/state
 /usr/clearos/apps/attack_detector/deploy
 /usr/clearos/apps/attack_detector/language

@@ -49,6 +49,9 @@ $app['core_directory_manifest'] = array(
     '/var/clearos/attack_detector' => array(),
     '/var/clearos/attack_detector/filters' => array(),
     '/var/clearos/attack_detector/state' => array(),
+    '/var/clearos/attack_detector/run' => array(
+        'mode' => '0700'
+    ),
 );
 
 $app['core_file_manifest'] = array(
