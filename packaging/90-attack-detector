@@ -49,8 +49,5 @@ grep " \-I " $ACTION_ADD | sed "s/ \-I / -D /" > $ACTION_DELETE
 sh $ACTION_DELETE > /dev/null 2>&1
 sh $ACTION_ADD >/dev/null 2>&1
 
-rm -f $ACTION_ADD
-rm -f $ACTION_DELETE
-
 # Exit 0
 :
